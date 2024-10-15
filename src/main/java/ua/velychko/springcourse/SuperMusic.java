@@ -1,8 +1,8 @@
 package ua.velychko.springcourse;
 
-public class RapMusic implements Music{
+public class SuperMusic implements Music{
     @Override
     public String getSong() {
-        return "";
+        return "Shine on you crazy diamond";
     }
 }

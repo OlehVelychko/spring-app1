@@ -1,4 +1,8 @@
 package ua.velychko.springcourse;
 
-public class ClassicalMusic {
+public class ClassicalMusic implements Music {
+    @Override
+    public String getSong() {
+        return "Hungarian Rhapsody";
+    }
 }
