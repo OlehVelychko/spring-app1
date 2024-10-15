@@ -1,4 +1,4 @@
 package ua.velychko.springcourse;
 
-public interface TestPR {
+public class MusicPlayer {
 }
