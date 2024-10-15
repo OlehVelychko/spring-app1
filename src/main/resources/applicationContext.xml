@@ -7,9 +7,8 @@
        http:///www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="testBean"
-          class="ua.velychko.springcourse.TestBean">
-        <constructor-arg value="Oleh"/>
+    <bean id="musicBean"
+          class="ua.velychko.springcourse.SuperMusic ">
     </bean>
 
 </beans>
