@@ -1,0 +1,121 @@
+Subject: [PATCH] List Player task
+---
+Index: src/main/java/ua/velychko/springcourse/MusicPlayer.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ua/velychko/springcourse/MusicPlayer.java b/src/main/java/ua/velychko/springcourse/MusicPlayer.java
+--- a/src/main/java/ua/velychko/springcourse/MusicPlayer.java	(revision 50bc0b6e744f049ff51b261ace9f5097b1499bcc)
++++ b/src/main/java/ua/velychko/springcourse/MusicPlayer.java	(date 1729074349732)
+@@ -1,13 +1,38 @@
+ package ua.velychko.springcourse;
+ 
+ public class MusicPlayer {
+-    private final Music music;
++    private Music music;
++    private String name;
++    private int volume;
+ 
+     // IoC
+     public MusicPlayer(Music music) {
+         this.music = music;
+     }
+ 
++    public MusicPlayer() {
++    }
++
++    public void setMusic(Music music) {
++        this.music = music;
++    }
++
++    public String getName() {
++        return name;
++    }
++
++    public void setName(String name) {
++        this.name = name;
++    }
++
++    public int getVolume() {
++        return volume;
++    }
++
++    public void setVolume(int volume) {
++        this.volume = volume;
++    }
++
+     public void playMusic() {
+         System.out.printf("Playing: %s", music.getSong());
+     }
+Index: src/main/java/ua/velychko/springcourse/TestSpring.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/ua/velychko/springcourse/TestSpring.java b/src/main/java/ua/velychko/springcourse/TestSpring.java
+--- a/src/main/java/ua/velychko/springcourse/TestSpring.java	(revision 50bc0b6e744f049ff51b261ace9f5097b1499bcc)
++++ b/src/main/java/ua/velychko/springcourse/TestSpring.java	(date 1729074587329)
+@@ -8,12 +8,15 @@
+                 "applicationContext.xml"
+         );
+ 
+-        Music music = context.getBean("musicBean", Music.class);
++        // Music music = context.getBean("musicBean", Music.class);
++        // MusicPlayer musicPlayer = new MusicPlayer(music);
+ 
+-        MusicPlayer musicPlayer = new MusicPlayer(music);
++        MusicPlayer musicPlayer = context.getBean("musicPlayer", MusicPlayer.class);
+ 
+         musicPlayer.playMusic();
+ 
++        System.out.printf("\n%s\n%s", musicPlayer.getName(), musicPlayer.getVolume());
++
+         context.close();
+     }
+ }
+Index: src/main/resources/musicPlayer.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/src/main/resources/musicPlayer.properties b/src/main/resources/musicPlayer.properties
+new file mode 100644
+--- /dev/null	(date 1729074830542)
++++ b/src/main/resources/musicPlayer.properties	(date 1729074830542)
+@@ -0,0 +1,2 @@
++musicPlayer.name=Some name
++musicPlayer.volume=70
+\ No newline at end of file
+Index: src/main/resources/applicationContext.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/applicationContext.xml b/src/main/resources/applicationContext.xml
+--- a/src/main/resources/applicationContext.xml	(revision 50bc0b6e744f049ff51b261ace9f5097b1499bcc)
++++ b/src/main/resources/applicationContext.xml	(date 1729075760096)
+@@ -4,11 +4,20 @@
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+-       http:///www.springframework.org/schema/context
++       http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+ 
++    <context:property-placeholder location="classpath:musicPlayer.properties"/>
++
+     <bean id="musicBean"
+-          class="ua.velychko.springcourse.SuperMusic ">
++          class="ua.velychko.springcourse.SuperMusic">
+     </bean>
+ 
++    <bean id="musicPlayer"
++          class="ua.velychko.springcourse.MusicPlayer">
++        <property name="music" ref="musicBean"/>
++        <property name="name" value="${musicPlayer.name}"/>
++        <property name="volume" value="${musicPlayer.volume}"/>
++    </bean>
++
+ </beans>
+\ No newline at end of file
