@@ -10,7 +10,10 @@
     <context:property-placeholder location="classpath:musicPlayer.properties"/>
 
     <!-- Define individual Music beans -->
-    <bean id="classicalMusicBean" class="ua.velychko.springcourse.ClassicalMusic"/>
+    <bean id="classicalMusicBean" class="ua.velychko.springcourse.ClassicalMusic"
+          init-method="doMyInit"
+          destroy-method="doMyDestroy"
+          factory-method="getClassicalMusic"/>
     <bean id="rockMusicBean" class="ua.velychko.springcourse.RockMusic"/>
     <bean id="superMusicBean" class="ua.velychko.springcourse.SuperMusic"/>
 

@@ -25,6 +25,11 @@ public class TestSpring {
         System.out.println(firstMusicPlayer.getVolume());
         System.out.println(secondMusicPlayer.getVolume());
 
+        System.out.println();
+
+        ClassicalMusic classicalMusicBean = context.getBean("classicalMusicBean", ClassicalMusic.class);
+        System.out.println(classicalMusicBean.getSong());
+
         context.close();
     }
 }
