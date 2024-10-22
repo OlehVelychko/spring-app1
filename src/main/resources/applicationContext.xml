@@ -8,26 +8,6 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:property-placeholder location="classpath:musicPlayer.properties"/>
-
-    <!-- Define individual Music beans -->
-    <bean id="classicalMusicBean" class="ua.velychko.springcourse.ClassicalMusic"
-          init-method="doMyInit"
-          destroy-method="doMyDestroy"
-          factory-method="getClassicalMusic"/>
-    <bean id="rockMusicBean" class="ua.velychko.springcourse.RockMusic"/>
-    <bean id="superMusicBean" class="ua.velychko.springcourse.SuperMusic"/>
-
-    <!-- Inject the Music beans into the musicList of the MusicPlayer -->
-    <bean id="musicPlayer" class="ua.velychko.springcourse.MusicPlayer" scope="prototype">
-        <property name="musicList">
-            <list>
-                <ref bean="classicalMusicBean"/>
-                <ref bean="rockMusicBean"/>
-                <ref bean="superMusicBean"/>
-            </list>
-        </property>
-        <property name="name" value="${musicPlayer.name}"/>
-        <property name="volume" value="${musicPlayer.volume}"/>
-    </bean>
+    <context:component-scan base-package="ua.velychko.springcourse"/>
 
 </beans>

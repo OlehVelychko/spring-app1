@@ -1,13 +1,13 @@
 package ua.velychko.springcourse;
 
-public class ClassicalMusic implements Music {
-    private ClassicalMusic() {
-    }
+import org.springframework.stereotype.Component;
 
-    @Override
-    public String getSong() {
-        return "Hungarian Rhapsody";
-    }
+import java.util.Random;
+
+@Component
+public class ClassicalMusic implements Music {
+    private final String[] songs = new String[]{"Hungarian Rhapsody",
+            "Clair de Lune", "Moonlight Sonata"};
 
     public void doMyInit() {
         System.out.println("Doing my ClassicalMusicBean initialization...");
@@ -17,8 +17,8 @@ public class ClassicalMusic implements Music {
         System.out.println("Doing my ClassicalMusicBean destruction...");
     }
 
-    public static ClassicalMusic getClassicalMusic() {
-        return new ClassicalMusic();
+    @Override
+    public String getSong() {
+        return songs[new Random().nextInt(songs.length)];
     }
-
 }

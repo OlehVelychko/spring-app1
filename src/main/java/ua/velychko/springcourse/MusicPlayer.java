@@ -1,14 +1,24 @@
 package ua.velychko.springcourse;
 
-import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
+@Component
 public class MusicPlayer {
-    private List<Music> musicList = new ArrayList<>();
+    private List<Music> musicList;
+
+    @Value("${musicPlayer.name}")
     private String name;
+
+    @Value("${musicPlayer.volume}")
     private int volume;
 
-    public MusicPlayer() {
+    @Autowired
+    public MusicPlayer(List<Music> musicList) {
+        this.musicList = musicList;
     }
 
     private static void accept(Music el) {
