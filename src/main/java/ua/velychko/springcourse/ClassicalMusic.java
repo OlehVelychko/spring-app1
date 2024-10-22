@@ -1,20 +1,26 @@
 package ua.velychko.springcourse;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
 @Component
+@Scope("singleton")
 public class ClassicalMusic implements Music {
     private final String[] songs = new String[]{"Hungarian Rhapsody",
             "Clair de Lune", "Moonlight Sonata"};
 
+    @PostConstruct
     public void doMyInit() {
-        System.out.println("Doing my ClassicalMusicBean initialization...");
+        System.out.println("Doing my ClassicalMusicBean initialization...\n");
     }
 
+    @PreDestroy
     public void doMyDestroy() {
-        System.out.println("Doing my ClassicalMusicBean destruction...");
+        System.out.println("Doing my ClassicalMusicBean destruction...\n");
     }
 
     @Override
