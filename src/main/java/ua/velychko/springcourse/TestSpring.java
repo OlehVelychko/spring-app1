@@ -13,10 +13,11 @@ public class TestSpring {
 
         firstMusicPlayer.playMusic();
 
-        System.out.printf("\n%s\n%s\n\n", firstMusicPlayer.getName(), firstMusicPlayer.getVolume());
+        System.out.printf("\n%s\n%s\n", firstMusicPlayer.getName(), firstMusicPlayer.getVolume());
+
+        System.out.println();
 
         boolean comparison = firstMusicPlayer == secondMusicPlayer;
-
         System.out.println(comparison);
         System.out.println(firstMusicPlayer);
         System.out.println(secondMusicPlayer);
@@ -41,6 +42,8 @@ public class TestSpring {
         System.out.println(qualifierMusicPlayer.playMusic(Genre.ROCK));
         System.out.println(qualifierMusicPlayer.playMusic(Genre.CLASSICAL));
         System.out.println(qualifierMusicPlayer.playMusic(Genre.SUPER));
+
+        System.out.println();
 
         context.close();
     }
